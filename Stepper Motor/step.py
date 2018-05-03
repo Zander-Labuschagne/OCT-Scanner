@@ -35,10 +35,10 @@ def setStep(w1, w2, w3, w4):
 	GPIO.output(coil_B_2_pin, w4)
  
 def forward():
-	for i in range(20):
+	for i in range(32): #hy step 2 keer die waarde, 512 is full rotation
 		for j in range(StepCount):
 			setStep(Seq[j][0], Seq[j][1], Seq[j][2], Seq[j][3])
-			time.sleep(20)
+			time.sleep(0.005)
  
 # def backwards(delay, steps):
 #     for i in range(steps):
@@ -47,7 +47,9 @@ def forward():
 #             time.sleep(delay)
  
 if __name__ == '__main__':
-    while True:
+    for i in range(1, 16):
+        #delay = input("delay: ")
+        #steps = input("steps: ")
         forward()
-        time.sleep(5000);
+        time.sleep(3);
         # backwards(int(delay) / 1000.0, int(steps))
