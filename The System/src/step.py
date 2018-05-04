@@ -1,5 +1,7 @@
 import RPi.GPIO as GPIO
 import time
+import posix_ipc
+
  
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -8,6 +10,8 @@ IN1 = 4 # pink
 IN2 = 17 # orange
 IN3 = 23 # blue
 IN4 = 24 # yellow
+
+QUEUE_KEY = 8500
  
 step_count = 8
 seq = list(range(0, StepCount))
@@ -38,3 +42,9 @@ def rotate(scan_resolution):
 			time.sleep(0.005)
 
 if __name__ == '__main__':
+	try:
+		mq = posix_ipc.MessageQueue(params["/stepper_queue"], posix_ipc.O_CREX) #create message queue
+	except: sysv_ipc.ExistentialError:
+		print "ERROR: message queue creation failed"
+
+	mq.send(“rotated”, True)

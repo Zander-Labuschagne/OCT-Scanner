@@ -1,37 +1,15 @@
 #include <unistd.h>
 #include <wiringPi.h>
 
+
+
+
 #include "../include/lcd.hpp"
 #include "../include/oct_scanner.h"
 
 int main()
 {
-	wiringPiSetup();
-
-	LCD lcd();
-	lcd.display("Initializing...");
-
-	//yellow start push button
-	pinMode(START_BUTTON, INPUT); 
-	pullUpDnControl(START_BUTTON, PUD_UP);
-
-	lcd.display("OCT/3D Scanner\nReady"); //TODO: Maak hom dalk flikker?
-
-	scan_type = PG; //= switch position
-	scan_resolution = 16; //= knob value
-
-	//TODO: Add switch to choose between 3D and OCT and update display accordingly
-	// if (scan_type == OCT)
-	// 	display("OCT Scanner\nReady");
-	// else if (scan_type == 3D)
-	// 	display("3D Scanner\nReady");
-
-	//TODO: Add knob to change scan resolution including real time on screen display update
-
-	pthread_create(&t_scan_type, NULL, poll_scan_type_switch, NULL);
-	pthread_create(&t_scan_resolution, NULL, poll_scan_resolution_knob, NULL);
-	pthread_create(&t_start_button, NULL, poll_start_button, NULL);
-
+	init();
 	//wag vir threads om klaar te maak
 	t_scan_type.join();
 	t_scan_resolution.join();
@@ -43,20 +21,62 @@ int main()
 	return 0;
 }
 
+void init()
+{
+	wiringPiSetup();
+
+//	LCD lcd();
+//	lcd.display("Initializing...");
+
+	//yellow start push button
+	pinMode(START_BUTTON, INPUT); 
+	pullUpDnControl(START_BUTTON, PUD_UP);
+
+	//scan type switch
+//	pinMode(SCAN_TYPE_SWITCH, INPUT_PULLDOWN);//Die gaan dalk moet aanpas vir wiringpi
+
+//	lcd.display("OCT/3D Scanner\nReady"); //TODO: Maak hom dalk flikker?
+
+//	if (digitalRead(SCAN_TYPE_SWITCH) == LOW) {
+//		scan_type = PG;
+//		display("3D Scanner\nReady");
+
+//	} else {
+//		scan_type = OCT;
+//		display("OCT Scanner\nReady");
+//	}
+
+	scan_resolution = 16; //= knob value
+
+
+	//TODO: Add knob to change scan resolution including real time on screen display update
+
+	pthread_create(&t_scan_type, NULL, poll_scan_type_switch, NULL);
+	pthread_create(&t_scan_resolution, NULL, poll_scan_resolution_knob, NULL);
+	pthread_create(&t_start_button, NULL, poll_start_button, NULL);
+}
+
 void poll_scan_type_switch()
 {
-	while (1) {
-		//scan_type = switch_position
-		usleep(50000);
-	}
+//	while (1) {
+//		if (digitalRead(SCAN_TYPE_SWITCH) == LOW) {
+//			scan_type = PG;
+//			display("3D Scanner\nReady");
+//		} else {
+//			scan_type = OCT;
+//			display("OCT Scanner\nReady");
+//		}
+
+//		usleep(50000);
+//	}
 }
 
 void poll_scan_resolution_knob()
 {
-	while (1) {
+//	while (1) {
 		//scan_resolution = knob_value
-		usleep(50000);
-	}
+//		usleep(50000);
+//	}
 }
 
 void poll_start_button()
@@ -110,9 +130,12 @@ void oct_scan()
 void pg_scan()
 {
 	//TODO: ambient lighting moet aktiveer
+
 	
 	for (unsigned short iii = 0; iii < scan_resolution; ++iii) {
 		//roep python kode EN wag vir so 3 of 4 sekondes
+
+		usleep(5000 * 1000); //ms * 1000 want hy verwag microseconds
 		
 
 	}
