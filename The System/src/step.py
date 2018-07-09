@@ -35,16 +35,27 @@ def set_step(w1, w2, w3, w4):
 	GPIO.output(IN3, w3)
 	GPIO.output(IN4, w4)
  
+#Die funksie is vir die IPC metode wat dan deur volle omwenteling hardloop en kommunikeer met C++
 def rotate(scan_resolution):
 	for i in range(scan_resolution):
 		for ii in range(step_count):
 			set_step(seq[ii][0], seq[ii][1], seq[ii][2], seq[ii][3])
 			time.sleep(0.005)
 
-if __name__ == '__main__':
-	try:
-		mq = posix_ipc.MessageQueue(params["/stepper_queue"], posix_ipc.O_CREX) #create message queue
-	except: sysv_ipc.ExistentialError:
-		print "ERROR: message queue creation failed"
+#Die funksie is vir die Shell exec metode wat net step elke keer as hy geroep word
+def step():
+	for ii in range(step_count):
+		set_step(seq[ii][0], seq[ii][1], seq[ii][2], seq[ii][3])
+		time.sleep(0.005)
 
-	mq.send(“rotated”, True)
+
+#Al wat die kode moet doen is roteer die stepper een step dan return vir C++ om foto te neem
+if __name__ == '__main__':
+	#IPC DEEL
+	# try:
+	# 	mq = posix_ipc.MessageQueue(params["/stepper_queue"], posix_ipc.O_CREX) #create message queue
+	# except: sysv_ipc.ExistentialError:
+	# 	print "ERROR: message queue creation failed"
+
+	# mq.send(“rotated”, True)
+	step()

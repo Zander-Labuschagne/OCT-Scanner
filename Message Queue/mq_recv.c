@@ -2,11 +2,11 @@
 #include <mqueue.h>
 #include <assert.h>
 
-#define MY_MQ_NAME "/stepper_queue"
+#define MY_MQ_NAME "/mq_test2"
 
 static struct mq_attr my_mq_attr;
 static mqd_t my_mq;
-//char message[4];
+//char message[10];
 int message;
 
 

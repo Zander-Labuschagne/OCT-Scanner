@@ -1,9 +1,10 @@
 import posix_ipc
+import time
 
 def send():
 	params = {}
 	line1 = "ITERATIONS=10"
-	line2 = "MESSAGE_QUEUE_NAME=/stepper_queue"
+	line2 = "MESSAGE_QUEUE_NAME=/mq_test2"
 
 	name, value = line1.split('=')
 	name = name.upper().strip()
@@ -31,15 +32,16 @@ def send():
 
 	mq = posix_ipc.MessageQueue(params["MESSAGE_QUEUE_NAME"], posix_ipc.O_CREX) #create message queue
 
-	mq.send("8")
+	mq.send("5")
 
-	#mq.close()
-	#posix_ipc.unlink_message_queue(params["MESSAGE_QUEUE_NAME"]) # of mq.unlink
+	time.sleep(5)
+	mq.close()
+	posix_ipc.unlink_message_queue(params["MESSAGE_QUEUE_NAME"]) # of mq.unlink
 
 def receive():
 	params = {}
 	line1 = "ITERATIONS=10"
-	line2 = "MESSAGE_QUEUE_NAME=/stepper_queue"
+	line2 = "MESSAGE_QUEUE_NAME=/test"
 
 	name, value = line1.split('=')
 	name = name.upper().strip()

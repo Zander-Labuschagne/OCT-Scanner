@@ -133,10 +133,21 @@ void pg_scan()
 
 	
 	for (unsigned short iii = 0; iii < scan_resolution; ++iii) {
-		//roep python kode EN wag vir so 3 of 4 sekondes
-
-		usleep(5000 * 1000); //ms * 1000 want hy verwag microseconds
-		
+		//roep python kode EN WAG tot hy klaar is
+		int a = system("python step.py");//TODO: Vervang die met IPC metode -- semaphore, message queue, UNIX domain socket, D-Bus subsystem
+							// http://www.chandrashekar.info/articles/linux-system-programming/introduction-to-linux-ipc-mechanims.html
+							// https://www.thegeekstuff.com/2010/08/ipcs-command-examples/
+							// http://www.tldp.org/LDP/lpg/node7.html
+							// https://beej.us/guide/bgipc/
+							// https://en.wikipedia.org/wiki/Unix_domain_socket
+							// https://stackoverflow.com/questions/6915191/simple-ipc-between-c-and-python-cross-platform
+							// http://zeromq.org/
+							// http://zeromq.org/intro:read-the-manual
+							// https://stackoverflow.com/questions/16173215/using-linux-posix-ipc-message-queue
+							// https://stackoverflow.com/questions/3056307/how-do-i-use-mqueue-in-a-c-program-on-a-linux-based-system
+		//usleep(5000 * 1000); //ms * 1000 want hy verwag microseconds
+		//sleep(5);//seconds
+		//Neem foto
 
 	}
 }
