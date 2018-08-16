@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 import time
-import posix_ipc
+#import posix_ipc
 
  
 GPIO.setmode(GPIO.BCM)
@@ -14,7 +14,7 @@ IN4 = 24 # yellow
 QUEUE_KEY = 8500
  
 step_count = 8
-seq = list(range(0, StepCount))
+seq = list(range(0, step_count))
 seq[0] = [1,0,0,0]
 seq[1] = [1,1,0,0]
 seq[2] = [0,1,0,0]
@@ -44,9 +44,10 @@ def rotate(scan_resolution):
 
 #Die funksie is vir die Shell exec metode wat net step elke keer as hy geroep word
 def step():
-	for ii in range(step_count):
-		set_step(seq[ii][0], seq[ii][1], seq[ii][2], seq[ii][3])
-		time.sleep(0.005)
+	for i in range(8):
+		for ii in range(step_count):
+			set_step(seq[ii][0], seq[ii][1], seq[ii][2], seq[ii][3])
+			time.sleep(0.005)
 
 
 #Al wat die kode moet doen is roteer die stepper een step dan return vir C++ om foto te neem
