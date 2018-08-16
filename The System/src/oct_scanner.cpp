@@ -243,7 +243,7 @@ int pg_scan()
 	for (unsigned short iii = 0; iii < scan_resolution; ++iii) {
 		//Neem foto
 		std::cout << "Neem foto" << std::endl;
-		if (capture_image2(iii) != 0) {
+		if (capture_image_2(iii) != 0) {
 			std::cerr << "Error in image capture" << std::endl;
 
 			return -1;
