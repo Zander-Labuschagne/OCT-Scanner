@@ -90,7 +90,7 @@ void init()
 //		display("OCT Scanner\nReady");
 //	}
 
-	scan_resolution = 512; //= knob value
+	scan_resolution = 8; //= knob value
 	camera_ready = false;
 
 
@@ -234,7 +234,7 @@ int pg_scan()
 	for (unsigned short iii = 0; iii < scan_resolution; ++iii) {
 		//roep python kode EN WAG tot hy klaar is
 		//TODO: sit in if stelling om dalk exception handling te doen
-		int a = system("sudo python step.py " + scan_resolution);//TODO: Vervang die met IPC metode -- semaphore, message queue, UNIX domain socket, D-Bus subsystem
+		int a = system("sudo python step.py " + 1 / scan_resolution * 512);//TODO: Vervang die met IPC metode -- semaphore, message queue, UNIX domain socket, D-Bus subsystem
 							// http://www.chandrashekar.info/articles/linux-system-programming/introduction-to-linux-ipc-mechanims.html
 							// https://www.thegeekstuff.com/2010/08/ipcs-command-examples/
 							// http://www.tldp.org/LDP/lpg/node7.html
