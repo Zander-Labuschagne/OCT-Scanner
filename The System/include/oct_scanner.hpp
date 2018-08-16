@@ -6,7 +6,7 @@
 #define SCAN_TYPE_SWITCH 2//TODO: Update accordingly
 
 #define OCT 1
-#define PG 2 
+#define PG 2
 
 #define QUEUE_KEY 8500
 
@@ -37,7 +37,7 @@ void poll_reset_button();
 int oct_scan();
 int pg_scan();
 
-int capture_image();
+int capture_image(int image_number);
 int capture_image_2();
 int capture_image_cv();
 

@@ -8,26 +8,26 @@
 //g++ simpletest_raspicam.cpp -o simpletest_raspicam -I/usr/local/include -lraspicam -lmmal -lmmal_core -lmmal_util
 
 //compile vir OpenCV image capture:
-// g++ simpletest_raspicam_cv.cpp -o  simpletest_raspicam_cv -I/usr/local/include/ -lraspicam -lraspicam_cv -lmmal -lmmal_core -lmmal_util -lopencv_core -lopencv_highgui 
+// g++ simpletest_raspicam_cv.cpp -o  simpletest_raspicam_cv -I/usr/local/include/ -lraspicam -lraspicam_cv -lmmal -lmmal_core -lmmal_util -lopencv_core -lopencv_highgui
 
 //CMake vir C++ image capture
 //  #####################################
-// cmake_minimum_required (VERSION 2.8) 
+// cmake_minimum_required (VERSION 2.8)
 // project (raspicam_test)
 // find_package(raspicam REQUIRED)
-// add_executable (simpletest_raspicam simpletest_raspicam.cpp)  
+// add_executable (simpletest_raspicam simpletest_raspicam.cpp)
 // target_link_libraries (simpletest_raspicam ${raspicam_LIBS})
 // #####################################
 
 //CMake vir OpenCV image capture
 //  #####################################
-// cmake_minimum_required (VERSION 2.8) 
+// cmake_minimum_required (VERSION 2.8)
 // project (raspicam_test)
 // find_package(raspicam REQUIRED)
 // find_package(OpenCV)
 // IF  ( OpenCV_FOUND AND raspicam_CV_FOUND)
 // MESSAGE(STATUS "COMPILING OPENCV TESTS")
-// add_executable (simpletest_raspicam_cv simpletest_raspicam_cv.cpp)  
+// add_executable (simpletest_raspicam_cv simpletest_raspicam_cv.cpp)
 // target_link_libraries (simpletest_raspicam_cv ${raspicam_CV_LIBS})
 // ELSE()
 // MESSAGE(FATAL_ERROR "OPENCV NOT FOUND IN YOUR SYSTEM")
@@ -55,11 +55,11 @@ int main()
 {
 	init();
 	//wag vir threads om klaar te maak
-	t_scan_type.join();
-	t_scan_resolution.join();
+	//t_scan_type.join();
+	//t_scan_resolution.join();
 	t_start_button.join();
 
-	t_oct_scan.join();
+	// t_oct_scan.join();
 	t_pg_scan.join();
 
 	return 0;
@@ -73,7 +73,7 @@ void init()
 //	lcd.display("Initializing...");
 
 	//yellow start push button
-	pinMode(START_BUTTON, INPUT); 
+	pinMode(START_BUTTON, INPUT);
 	pullUpDnControl(START_BUTTON, PUD_UP);
 
 	//scan type switch
@@ -90,14 +90,14 @@ void init()
 //		display("OCT Scanner\nReady");
 //	}
 
-	scan_resolution = 16; //= knob value
+	scan_resolution = 512; //= knob value
 	camera_ready = false;
 
 
 	//TODO: Add knob to change scan resolution including real time on screen display update
 
-	pthread_create(&t_scan_type, NULL, poll_scan_type_switch, NULL);
-	pthread_create(&t_scan_resolution, NULL, poll_scan_resolution_knob, NULL);
+	//pthread_create(&t_scan_type, NULL, poll_scan_type_switch, NULL);
+	//pthread_create(&t_scan_resolution, NULL, poll_scan_resolution_knob, NULL);
 	pthread_create(&t_start_button, NULL, poll_start_button, NULL);
 }
 
@@ -109,7 +109,7 @@ int init_camera()
 	// Allowable heights: 240, 480, 960
 	camera.setCaptureSize(1280, 960);
 
-	// Open camera 
+	// Open camera
 	//Kan ek nie hierdie open deel een keer doen in init_camera nie, sodat hy nie vir elke beeld moet open nie
 	if (!camera.open()) {
 		std::cerr << "Error opening camera" << std::endl;
@@ -130,7 +130,7 @@ int init_camera_cv()
 	//Open camera
 	if (!camera_cv.open()) {
 		std::cerr << "Error opening the camera" << std::endl;
-		
+
 		return -1;
 	}
 
@@ -167,13 +167,13 @@ void poll_start_button()
 	while (1) {
 		if (digitalRead(START_BUTTON) == 0) {//TODO: Check and Update values accordingly
 			//TODO: stop die ander threads wat settings poll - hoe????
-			//printf("High\n");
-			if (scan_type == OCT) //Doen OCT scan
-				pthread_create(&t_oct_scan, NULL, oct_scan, NULL);
-			else if (scan_type == PG) { //Doen photogrammetry scan
+			printf("High\n");
+			// if (scan_type == OCT) //Doen OCT scan
+			// 	pthread_create(&t_oct_scan, NULL, oct_scan, NULL);
+			// else if (scan_type == PG) { //Doen photogrammetry scan
 				pthread_create(&t_pg_scan, NULL, pg_scan, NULL);
-			pthread_create(&t_reset_button, NULL, poll_reset_button, NULL);
-			
+			// pthread_create(&t_reset_button, NULL, poll_reset_button, NULL);
+
 			break;
 		}
 		else
@@ -186,25 +186,25 @@ void poll_start_button()
 		// https://www.waveshare.com/wiki/Raspberry_Pi_Tutorial_Series:_External_Button
 void poll_reset_button()
 {
-	long hold_counter = 0;
-	while (1) {
-		//if pressed increase counter
-		if (digitalRead(START_BUTTON) == 0) //TODO: Check and update values accordingly
-			++hold_counter;
-		else
-			hold_counter = 0;
-		//if counter >= seker waarde dan lank genoeg ingehou vir reset proses
-		if (hold_counter >= 2000) {
-			//TODO: stop scan en ander threads hoe??????????
-			//begin start button en ander settings te poll
-			pthread_create(&t_scan_type, NULL, poll_scan_type_switch, NULL);
-			pthread_create(&t_scan_resolution, NULL, poll_scan_resolution_knob, NULL);
-			pthread_create(&t_start_button, NULL, poll_start_button, NULL);
-
-			break;
-		}
-		usleep(50000);
-	}
+	// long hold_counter = 0;
+	// while (1) {
+	// 	//if pressed increase counter
+	// 	if (digitalRead(START_BUTTON) == 0) //TODO: Check and update values accordingly
+	// 		++hold_counter;
+	// 	else
+	// 		hold_counter = 0;
+	// 	//if counter >= seker waarde dan lank genoeg ingehou vir reset proses
+	// 	if (hold_counter >= 2000) {
+	// 		//TODO: stop scan en ander threads hoe??????????
+	// 		//begin start button en ander settings te poll
+	// 		pthread_create(&t_scan_type, NULL, poll_scan_type_switch, NULL);
+	// 		pthread_create(&t_scan_resolution, NULL, poll_scan_resolution_knob, NULL);
+	// 		pthread_create(&t_start_button, NULL, poll_start_button, NULL);
+	//
+	// 		break;
+	// 	}
+	// 	usleep(50000);
+	// }
 }
 
 int oct_scan()
@@ -226,15 +226,15 @@ int pg_scan()
 	// if (init_camera_cv() == -1)
 	// 	return -1;
 
-	
+
 
 	//TODO: ambient lighting moet aktiveer
 	//Is dit beter om lighting aan te hou of af en aan te sit vir elke beeld?
-	
+
 	for (unsigned short iii = 0; iii < scan_resolution; ++iii) {
 		//roep python kode EN WAG tot hy klaar is
 		//TODO: sit in if stelling om dalk exception handling te doen
-		int a = system("python step.py");//TODO: Vervang die met IPC metode -- semaphore, message queue, UNIX domain socket, D-Bus subsystem
+		int a = system("sudo python step.py " + scan_resolution);//TODO: Vervang die met IPC metode -- semaphore, message queue, UNIX domain socket, D-Bus subsystem
 							// http://www.chandrashekar.info/articles/linux-system-programming/introduction-to-linux-ipc-mechanims.html
 							// https://www.thegeekstuff.com/2010/08/ipcs-command-examples/
 							// http://www.tldp.org/LDP/lpg/node7.html
@@ -249,18 +249,18 @@ int pg_scan()
 		//sleep(5);//seconds
 
 		//Neem foto
-		if (capture_image() != 0) {
+		if (capture_image(iii) != 0) {
 			std::cerr << "Error in image capture" << std::endl;
 
 			return -1;
 		}
 
 		//Neem foto met OpenCV
-		if (capture_image_cv() != 0) {
-			std::cerr << "Error in image capture" << std::endl;
-
-			return -1;
-		}
+		// if (capture_image_cv() != 0) {
+		// 	std::cerr << "Error in image capture" << std::endl;
+		//
+		// 	return -1;
+		// }
 		deactivate_camera_cv();
 	}
 
@@ -271,7 +271,7 @@ int pg_scan()
  * Must call init_camera() before calling this function
  */
 //TODO: Dalk string parameter by sit vir file naam...
-int capture_image()
+int capture_image(int image_number)
 {
 	if (!camera_ready) {
 		std::cerr << "Camera not initialized" << std::endl;
@@ -286,10 +286,10 @@ int capture_image()
 	//extract the image in rgb format
 	camera.retrieve(data, raspicam::RASPICAM_FORMAT_RGB);//get camera image
 	//save image
-	std::ofstream outFile("raspicam_image.ppm", std::ios::binary);
+	std::ofstream outFile("raspicam_image_" + image_number + ".ppm", std::ios::binary);
 	outFile << "P6\n" << camera.getWidth() << " " << camera.getHeight() << " 255\n";
 	outFile.write((char*)image_data, camera.getImageTypeSize(raspicam::RASPICAM_FORMAT_RGB));
-	//free resrources    
+	//free resrources
 	delete image_data;
 
 	return 0;
@@ -319,7 +319,7 @@ int capture_image_2()
 		// Extract the image
 		camera.retrieve(image_data, raspicam::RASPICAM_FORMAT_IGNORE);
 	}
-	
+
 	//Met die 3 lyntjies hier wees of binne die for?
 	std::ofstream outFile("raspicam_image.ppm", std::ios::binary);
 	outFile << "P6\n" << camera.getWidth() << " " << camera.getHeight() << " 255\n";
@@ -364,7 +364,7 @@ int capture_image_cv()
 	double seconds_elapsed = difftime(timer_end,timer_begin);
 	std::cout << seconds_elapsed << " seconds for " << n_count << "  frames : FPS = " << (float)((float)(n_count) / seconds_elapsed) << std::endl;
 
-	//save image 
+	//save image
 	cv::imwrite("raspicam_cv_image.jpg", image);
 
 	return 0;

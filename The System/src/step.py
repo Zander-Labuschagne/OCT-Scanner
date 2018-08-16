@@ -43,12 +43,12 @@ def rotate(scan_resolution):
 			set_step(seq[ii][0], seq[ii][1], seq[ii][2], seq[ii][3])
 			time.sleep(0.005)
 
-#Die funksie is vir die Shell exec metode wat net step elke keer as hy geroep word
-def step(resolution):
-	for i in range(resolution):
-		for ii in range(step_count):
-			set_step(seq[ii][0], seq[ii][1], seq[ii][2], seq[ii][3])
-			time.sleep(0.005)
+#Die funksie is vir die Shell exec metode wat net step elke keer as hy geroep word, nie IPC
+# def step(resolution):
+# 	for i in range(resolution):
+# 		for ii in range(step_count):
+# 			set_step(seq[ii][0], seq[ii][1], seq[ii][2], seq[ii][3])
+# 			time.sleep(0.005)
 
 
 #Al wat die kode moet doen is roteer die stepper een step dan return vir C++ om foto te neem
@@ -60,5 +60,4 @@ if __name__ == '__main__':
 	# 	print "ERROR: message queue creation failed"
 
 	# mq.send(“rotated”, True)
-	print(sys.argv[1])
-	step(16)
+	rotate(sys.argv[1])
