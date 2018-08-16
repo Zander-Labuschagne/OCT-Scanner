@@ -227,6 +227,8 @@ int pg_scan()
 
 	int stepper_resolution = 1 / scan_resolution * 512;
 	std::string python_exec = "sudo python step.py " + std::to_string(stepper_resolution);
+	// char *python_exec_char = new char[python_exec.length() + 1];
+	// strcpy(python_exec_char, python_exec.c_str());
 
 	// //Get camera ready for OpenCV
 	// if (init_camera_cv() == -1)
@@ -247,7 +249,7 @@ int pg_scan()
 		std::cout << "Neem foto" << std::endl;
 		//roep python kode EN WAG tot hy klaar is
 		//TODO: sit in if stelling om dalk exception handling te doen
-		int a = system(python_exec);//TODO: Vervang die met IPC metode -- semaphore, message queue, UNIX domain socket, D-Bus subsystem
+		int a = system(python_exec.c_str());//TODO: Vervang die met IPC metode -- semaphore, message queue, UNIX domain socket, D-Bus subsystem
 							// http://www.chandrashekar.info/articles/linux-system-programming/introduction-to-linux-ipc-mechanims.html
 							// https://www.thegeekstuff.com/2010/08/ipcs-command-examples/
 							// http://www.tldp.org/LDP/lpg/node7.html
