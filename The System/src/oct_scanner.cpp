@@ -65,7 +65,7 @@ int main()
 	return 0;
 }
 
-void init_oct_scanner()
+void init()
 {
 	wiringPiSetup();
 
