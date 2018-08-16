@@ -60,5 +60,5 @@ if __name__ == '__main__':
 	# 	print "ERROR: message queue creation failed"
 
 	# mq.send(“rotated”, True)
-	print(sys.argv[1:])
+	print(sys.argv[1])
 	step(16)
