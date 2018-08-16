@@ -26,7 +26,7 @@ pthread_t t_pg_scan;
 raspicam::RaspiCam camera; //Camera object
 // raspicam::RaspiCam_Cv camera_cv; //OpenCV camera object
 
-int init();
+int init_oct_scanner();
 int init_camera();
 
 void poll_scan_type_switch();

@@ -65,7 +65,7 @@ int main()
 	return 0;
 }
 
-void init()
+void init_oct_scanner()
 {
 	wiringPiSetup();
 
@@ -287,7 +287,7 @@ int capture_image(int image_number)
 	//extract the image in rgb format
 	camera.retrieve(image_data, raspicam::RASPICAM_FORMAT_RGB);//get camera image
 	//save image
-	std::ofstream outFile("raspicam_image_" + image_number + ".ppm", std::ios::binary);
+	std::ofstream outFile("raspicam_image_" + std::to_string(image_number) + ".ppm", std::ios::binary);
 	outFile << "P6\n" << camera.getWidth() << " " << camera.getHeight() << " 255\n";
 	outFile.write((char*)image_data, camera.getImageTypeSize(raspicam::RASPICAM_FORMAT_RGB));
 	//free resrources
