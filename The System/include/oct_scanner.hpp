@@ -38,7 +38,7 @@ int oct_scan();
 int pg_scan();
 
 int capture_image(int image_number);
-int capture_image_2();
+int capture_image_2(int image_number);
 int capture_image_cv();
 
 void deactivate_camera_cv();
