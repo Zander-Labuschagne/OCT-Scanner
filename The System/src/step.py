@@ -61,3 +61,4 @@ if __name__ == '__main__':
 
 	# mq.send(“rotated”, True)
 	rotate(int(sys.argv[1]))
+	print "Draai in python\n"

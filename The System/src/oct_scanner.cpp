@@ -264,6 +264,7 @@ int pg_scan()
 		//sleep(5);//seconds
 
 		std::cout << "Draai" << std::endl;
+		sleep(5);
 		//Neem foto met OpenCV
 		// if (capture_image_cv() != 0) {
 		// 	std::cerr << "Error in image capture" << std::endl;
