@@ -301,31 +301,31 @@ int capture_image(int image_number)
 //TODO: Dalk string parameter by sit vir file naam...
 int capture_image_2()
 {
-	if (!camera_ready) {
-		std::cerr << "Camera not initialized" << std::endl;
-
-		return -1;
-	}
-
-	int n_frames = 1000;
-	// Allocate memory for camera buffer
-	unsigned long image_bytes = camera.getImageBufferSize();
-	unsigned char *image_data = new unsigned char[bytes];
-
-	for(int frame = 0; frame < n_frames; frame++) {
-		// Capture frame
-		camera.grab();
-
-		// Extract the image
-		camera.retrieve(image_data, raspicam::RASPICAM_FORMAT_IGNORE);
-	}
-
-	//Met die 3 lyntjies hier wees of binne die for?
-	std::ofstream outFile("raspicam_image.ppm", std::ios::binary);
-	outFile << "P6\n" << camera.getWidth() << " " << camera.getHeight() << " 255\n";
-	outFile.write((char*)image_data, camera.getImageTypeSize(raspicam::RASPICAM_FORMAT_RGB));
-
-	delete image_data;
+	// if (!camera_ready) {
+	// 	std::cerr << "Camera not initialized" << std::endl;
+	//
+	// 	return -1;
+	// }
+	//
+	// int n_frames = 1000;
+	// // Allocate memory for camera buffer
+	// unsigned long image_bytes = camera.getImageBufferSize();
+	// unsigned char *image_data = new unsigned char[bytes];
+	//
+	// for(int frame = 0; frame < n_frames; frame++) {
+	// 	// Capture frame
+	// 	camera.grab();
+	//
+	// 	// Extract the image
+	// 	camera.retrieve(image_data, raspicam::RASPICAM_FORMAT_IGNORE);
+	// }
+	//
+	// //Met die 3 lyntjies hier wees of binne die for?
+	// std::ofstream outFile("raspicam_image.ppm", std::ios::binary);
+	// outFile << "P6\n" << camera.getWidth() << " " << camera.getHeight() << " 255\n";
+	// outFile.write((char*)image_data, camera.getImageTypeSize(raspicam::RASPICAM_FORMAT_RGB));
+	//
+	// delete image_data;
 
 	return 0;
 }
