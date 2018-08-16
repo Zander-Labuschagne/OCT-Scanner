@@ -49,7 +49,7 @@
 #include <wiringPi.h>
 
 #include "../include/lcd.hpp"
-#include "../include/oct_scanner.h"
+#include "../include/oct_scanner.hpp"
 
 int main()
 {
