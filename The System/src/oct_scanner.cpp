@@ -235,6 +235,13 @@ int pg_scan()
 	//Is dit beter om lighting aan te hou of af en aan te sit vir elke beeld?
 
 	for (unsigned short iii = 0; iii < scan_resolution; ++iii) {
+		//Neem foto
+		if (capture_image(iii) != 0) {
+			std::cerr << "Error in image capture" << std::endl;
+
+			return -1;
+		}
+		std::cout << "Neem foto" << std::endl;
 		//roep python kode EN WAG tot hy klaar is
 		//TODO: sit in if stelling om dalk exception handling te doen
 		int a = system("sudo python step.py " + 1 / scan_resolution * 512);//TODO: Vervang die met IPC metode -- semaphore, message queue, UNIX domain socket, D-Bus subsystem
@@ -251,13 +258,7 @@ int pg_scan()
 		//usleep(5000 * 1000); //ms * 1000 want hy verwag microseconds
 		//sleep(5);//seconds
 
-		//Neem foto
-		if (capture_image(iii) != 0) {
-			std::cerr << "Error in image capture" << std::endl;
-
-			return -1;
-		}
-
+		std::cout << "Draai" << std::endl;
 		//Neem foto met OpenCV
 		// if (capture_image_cv() != 0) {
 		// 	std::cerr << "Error in image capture" << std::endl;
