@@ -24,7 +24,7 @@ pthread_t t_oct_scan;
 pthread_t t_pg_scan;
 
 raspicam::RaspiCam camera; //Camera object
-raspicam::RaspiCam_Cv camera_cv; //OpenCV camera object
+// raspicam::RaspiCam_Cv camera_cv; //OpenCV camera object
 
 int init();
 int init_camera();
