@@ -225,7 +225,8 @@ int pg_scan()
 	if (init_camera() == -1)
 		return -1;
 
-	int stepper_resolution = 1 / scan_resolution * 512;
+	int stepper_resolution = 512 / scan_resolution;
+	std::cout << stepper_resolution << std::endl;
 	std::string python_exec = "sudo python step.py " + std::to_string(stepper_resolution);
 	// char *python_exec_char = new char[python_exec.length() + 1];
 	// strcpy(python_exec_char, python_exec.c_str());
@@ -263,7 +264,7 @@ int pg_scan()
 		//usleep(5000 * 1000); //ms * 1000 want hy verwag microseconds
 		//sleep(5);//seconds
 
-		std::cout << "Draai: " << python_exec << std::endl;
+		std::cout << "Draai: " << python_exec.c_str() << std::endl;
 		sleep(5);
 		//Neem foto met OpenCV
 		// if (capture_image_cv() != 0) {
