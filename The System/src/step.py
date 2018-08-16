@@ -43,8 +43,8 @@ def rotate(scan_resolution):
 			time.sleep(0.005)
 
 #Die funksie is vir die Shell exec metode wat net step elke keer as hy geroep word
-def step():
-	for i in range(8):
+def step(resolution):
+	for i in range(resolution):
 		for ii in range(step_count):
 			set_step(seq[ii][0], seq[ii][1], seq[ii][2], seq[ii][3])
 			time.sleep(0.005)
@@ -59,4 +59,4 @@ if __name__ == '__main__':
 	# 	print "ERROR: message queue creation failed"
 
 	# mq.send(“rotated”, True)
-	step(8)
+	step(16)
