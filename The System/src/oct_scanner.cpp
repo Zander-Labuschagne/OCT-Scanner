@@ -226,7 +226,7 @@ int pg_scan()
 		return -1;
 
 	int stepper_resolution = 512 / scan_resolution;
-	std::cout << stepper_resolution << std::endl;
+	//std::cout << stepper_resolution << std::endl;
 	std::string python_exec = "sudo python step.py " + std::to_string(stepper_resolution);
 	// char *python_exec_char = new char[python_exec.length() + 1];
 	// strcpy(python_exec_char, python_exec.c_str());
@@ -242,12 +242,13 @@ int pg_scan()
 
 	for (unsigned short iii = 0; iii < scan_resolution; ++iii) {
 		//Neem foto
+		std::cout << "Neem foto" << std::endl;
 		if (capture_image(iii) != 0) {
 			std::cerr << "Error in image capture" << std::endl;
 
 			return -1;
 		}
-		std::cout << "Neem foto" << std::endl;
+		// deactivate_camera_cv();
 		//roep python kode EN WAG tot hy klaar is
 		//TODO: sit in if stelling om dalk exception handling te doen
 		int a = system(python_exec.c_str());//TODO: Vervang die met IPC metode -- semaphore, message queue, UNIX domain socket, D-Bus subsystem
@@ -264,15 +265,14 @@ int pg_scan()
 		//usleep(5000 * 1000); //ms * 1000 want hy verwag microseconds
 		//sleep(5);//seconds
 
-		std::cout << "Draai: " << python_exec.c_str() << std::endl;
-		sleep(5);
+		//std::cout << "Draai: " << python_exec.c_str() << std::endl;
+		//sleep(5);
 		//Neem foto met OpenCV
 		// if (capture_image_cv() != 0) {
 		// 	std::cerr << "Error in image capture" << std::endl;
 		//
 		// 	return -1;
 		// }
-		deactivate_camera_cv();
 	}
 
 	return 0;

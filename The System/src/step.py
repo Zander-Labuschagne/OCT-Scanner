@@ -60,5 +60,6 @@ if __name__ == '__main__':
 	# 	print "ERROR: message queue creation failed"
 
 	# mq.send(“rotated”, True)
+	print("Begin draai\n");
 	rotate(int(sys.argv[1]))
-	print("Draai in python\n")
+	print("Klaar gedraai\n")
