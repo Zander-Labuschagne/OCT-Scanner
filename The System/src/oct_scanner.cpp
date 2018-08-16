@@ -263,7 +263,7 @@ int pg_scan()
 		//usleep(5000 * 1000); //ms * 1000 want hy verwag microseconds
 		//sleep(5);//seconds
 
-		std::cout << "Draai" << std::endl;
+		std::cout << "Draai: " << python_exec.c_str() << std::endl;
 		sleep(5);
 		//Neem foto met OpenCV
 		// if (capture_image_cv() != 0) {
