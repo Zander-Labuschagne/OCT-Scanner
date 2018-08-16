@@ -43,18 +43,11 @@ def rotate(scan_resolution):
 			time.sleep(0.005)
 
 #Die funksie is vir die Shell exec metode wat net step elke keer as hy geroep word
-<<<<<<< HEAD
 def step():
 	for i in range(8):
 		for ii in range(step_count):
 			set_step(seq[ii][0], seq[ii][1], seq[ii][2], seq[ii][3])
 			time.sleep(0.005)
-=======
-def step(step_count):
-	for ii in range(step_count):
-		set_step(seq[ii][0], seq[ii][1], seq[ii][2], seq[ii][3])
-		time.sleep(0.005)
->>>>>>> 536d4a6617686e0a37112a4e5e8bb19a3f8fd69f
 
 
 #Al wat die kode moet doen is roteer die stepper een step dan return vir C++ om foto te neem
