@@ -93,6 +93,8 @@ void init()
 	scan_resolution = 8; //= knob value
 	camera_ready = false;
 
+	poll_start_button();
+
 
 	//TODO: Add knob to change scan resolution including real time on screen display update
 
