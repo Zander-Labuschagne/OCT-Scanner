@@ -310,7 +310,7 @@ int capture_image(int image_number)
  * Must call init_camera() before calling this function
  */
 //TODO: Dalk string parameter by sit vir file naam...
-int capture_image_2()
+int capture_image_2(int image_number)
 {
 	if (!camera_ready) {
 		std::cerr << "Camera not initialized" << std::endl;
@@ -332,7 +332,7 @@ int capture_image_2()
 	}
 
 	//Met die 3 lyntjies hier wees of binne die for?
-	std::ofstream outFile("raspicam_image.ppm", std::ios::binary);
+	std::ofstream outFile("raspicam_image_" + std::to_string(image_number) + ".ppm", std::ios::binary);
 	outFile << "P6\n" << camera.getWidth() << " " << camera.getHeight() << " 255\n";
 	outFile.write((char*)image_data, camera.getImageTypeSize(raspicam::RASPICAM_FORMAT_RGB));
 
