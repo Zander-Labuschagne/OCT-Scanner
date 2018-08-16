@@ -125,18 +125,18 @@ int init_camera()
 
 int init_camera_cv()
 {
-	//set camera parameters
-	camera_cv.set(CV_CAP_PROP_FORMAT, CV_8UC1);
-	//Open camera
-	if (!camera_cv.open()) {
-		std::cerr << "Error opening the camera" << std::endl;
-
-		return -1;
-	}
-
-	camera_ready = true;
-
-	return 0;
+	// //set camera parameters
+	// camera_cv.set(CV_CAP_PROP_FORMAT, CV_8UC1);
+	// //Open camera
+	// if (!camera_cv.open()) {
+	// 	std::cerr << "Error opening the camera" << std::endl;
+	//
+	// 	return -1;
+	// }
+	//
+	// camera_ready = true;
+	//
+	// return 0;
 }
 
 void poll_scan_type_switch()
@@ -344,28 +344,28 @@ int capture_image_cv()
 		return -1;
 	}
 
-	time_t timer_begin, timer_end; //Blykbaar vir tyd statistieke
-
-	cv::Mat image;
-	int n_count = 100;
-
-	//Start capture
-	std::cout << "Capturing " << n_count << " frames ...." << std::endl;
-	time(&timer_begin);
-	for(int i = 0; i < n_count; i++) {
-        	camera_cv.grab();
-		camera_cv.retrieve(image);
-		if(i % 5 == 0)
-			std::cout << "\r captured " << i << " images" << std::flush;
-	}
-
-	//show time statistics
-	time(&timer_end); /* get current time; same as: timer = time(NULL)  */
-	double seconds_elapsed = difftime(timer_end,timer_begin);
-	std::cout << seconds_elapsed << " seconds for " << n_count << "  frames : FPS = " << (float)((float)(n_count) / seconds_elapsed) << std::endl;
-
-	//save image
-	cv::imwrite("raspicam_cv_image.jpg", image);
+	// time_t timer_begin, timer_end; //Blykbaar vir tyd statistieke
+	//
+	// cv::Mat image;
+	// int n_count = 100;
+	//
+	// //Start capture
+	// std::cout << "Capturing " << n_count << " frames ...." << std::endl;
+	// time(&timer_begin);
+	// for(int i = 0; i < n_count; i++) {
+        // 	camera_cv.grab();
+	// 	camera_cv.retrieve(image);
+	// 	if(i % 5 == 0)
+	// 		std::cout << "\r captured " << i << " images" << std::flush;
+	// }
+	//
+	// //show time statistics
+	// time(&timer_end); /* get current time; same as: timer = time(NULL)  */
+	// double seconds_elapsed = difftime(timer_end,timer_begin);
+	// std::cout << seconds_elapsed << " seconds for " << n_count << "  frames : FPS = " << (float)((float)(n_count) / seconds_elapsed) << std::endl;
+	//
+	// //save image
+	// cv::imwrite("raspicam_cv_image.jpg", image);
 
 	return 0;
 }
@@ -373,6 +373,6 @@ int capture_image_cv()
 void deactivate_camera_cv()
 {
 	//cout<<"Stop camera..."<<endl;
-	camera_cv.release();
-	camera_ready = false;
+	// camera_cv.release();
+	// camera_ready = false;
 }
