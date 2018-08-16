@@ -57,10 +57,10 @@ int main()
 	//wag vir threads om klaar te maak
 	//t_scan_type.join();
 	//t_scan_resolution.join();
-	t_start_button.join();
+	//t_start_button.join();
 
 	// t_oct_scan.join();
-	t_pg_scan.join();
+	//t_pg_scan.join();
 
 	return 0;
 }
@@ -98,7 +98,7 @@ void init()
 
 	//pthread_create(&t_scan_type, NULL, poll_scan_type_switch, NULL);
 	//pthread_create(&t_scan_resolution, NULL, poll_scan_resolution_knob, NULL);
-	pthread_create(&t_start_button, NULL, poll_start_button, NULL);
+	//pthread_create(&t_start_button, NULL, poll_start_button, NULL);
 }
 
 int init_camera()
@@ -171,7 +171,8 @@ void poll_start_button()
 			// if (scan_type == OCT) //Doen OCT scan
 			// 	pthread_create(&t_oct_scan, NULL, oct_scan, NULL);
 			// else if (scan_type == PG) { //Doen photogrammetry scan
-				pthread_create(&t_pg_scan, NULL, pg_scan, NULL);
+				//pthread_create(&t_pg_scan, NULL, pg_scan, NULL);
+				pg_scan();
 			// pthread_create(&t_reset_button, NULL, poll_reset_button, NULL);
 
 			break;
@@ -284,7 +285,7 @@ int capture_image(int image_number)
 	//allocate memory
 	unsigned char *image_data = new unsigned char[camera.getImageTypeSize(raspicam::RASPICAM_FORMAT_RGB)];
 	//extract the image in rgb format
-	camera.retrieve(data, raspicam::RASPICAM_FORMAT_RGB);//get camera image
+	camera.retrieve(image_data, raspicam::RASPICAM_FORMAT_RGB);//get camera image
 	//save image
 	std::ofstream outFile("raspicam_image_" + image_number + ".ppm", std::ios::binary);
 	outFile << "P6\n" << camera.getWidth() << " " << camera.getHeight() << " 255\n";
