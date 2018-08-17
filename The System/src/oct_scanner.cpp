@@ -248,6 +248,8 @@ int pg_scan()
 
 			return -1;
 		}
+		std::cout << "Neem foto geneem" << std::endl;
+
 		//int b = system(("raspistill -o image_" + std::to_string(iii) + ".png").c_str());
 		//std::cout << ("raspistill -e png -o " + std::to_string(iii) + ".png").c_str() << std::endl;
 		// deactivate_camera_cv();
