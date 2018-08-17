@@ -248,7 +248,8 @@ int pg_scan()
 
 			return -1;
 		}
-		int b = system(("raspistill -e png -o " + std::to_string(iii) + ".png").c_str());
+		int b = system(("raspistill -o image_" + std::to_string(iii) + ".png").c_str());
+		std::cout << ("raspistill -e png -o " + std::to_string(iii) + ".png").c_str() << std::endl;
 		// deactivate_camera_cv();
 		//roep python kode EN WAG tot hy klaar is
 		//TODO: sit in if stelling om dalk exception handling te doen
