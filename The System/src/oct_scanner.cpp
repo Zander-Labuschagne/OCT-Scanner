@@ -243,13 +243,13 @@ int pg_scan()
 	for (unsigned short iii = 0; iii < scan_resolution; ++iii) {
 		//Neem foto
 		std::cout << "Neem foto" << std::endl;
-		if (capture_image_2(iii) != 0) {
+		if (capture_image(iii) != 0) {
 			std::cerr << "Error in image capture" << std::endl;
 
 			return -1;
 		}
-		int b = system(("raspistill -o image_" + std::to_string(iii) + ".png").c_str());
-		std::cout << ("raspistill -e png -o " + std::to_string(iii) + ".png").c_str() << std::endl;
+		//int b = system(("raspistill -o image_" + std::to_string(iii) + ".png").c_str());
+		//std::cout << ("raspistill -e png -o " + std::to_string(iii) + ".png").c_str() << std::endl;
 		// deactivate_camera_cv();
 		//roep python kode EN WAG tot hy klaar is
 		//TODO: sit in if stelling om dalk exception handling te doen
